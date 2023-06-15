@@ -1,19 +1,31 @@
 package com.example.demo;
 
+import com.example.demo.service.TicketService;
+import com.example.demo.service.TicketServiceImpl;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class TicketsValidatorJob {
+    private boolean firstCall = true;
+    private final TicketService ticketService;
 
     private WebDriver driver = null;
     private List<Integer> lastAvailableTickets = null;
+
+    public TicketsValidatorJob(TicketServiceImpl ticketService) {
+        this.ticketService = ticketService;
+    }
 
     @Scheduled(fixedDelay = 3_000)
     public void job() throws Exception {
@@ -39,11 +51,28 @@ public class TicketsValidatorJob {
             System.out.println(isGeorgiaTicketAvailable);
 
             if (isGeorgiaTicketAvailable) {
-                // call mps music
+               playAlarm();
             }
+            if (!firstCall){
+                ticketService.addGames(newAvailableTickets);
+            }else {
+                firstCall=false;
+            }
+
         }
         lastAvailableTickets = availableTickets;
+    }
 
+    private void playAlarm() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("D:/Java/mus/execute.aiff").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch(Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
     }
 
     protected boolean getIfMatchesAnyIndex(List<Integer> first, List<Integer> second) {

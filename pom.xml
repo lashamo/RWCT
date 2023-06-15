@@ -21,6 +21,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
@@ -28,13 +34,54 @@
             <version>4.8.2</version>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>javazoom</groupId>-->
+<!--            <artifactId>jlayer</artifactId>-->
+<!--            <version>1.0.1</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+<!--        <dependency>-->
+<!--            <groupId>net.javacrumbs.jadler-jdk</groupId>-->
+<!--            <artifactId>jadler-jdk</artifactId>-->
+<!--            <version>1.1.2</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>net.javacrumbs.jadler-jdk</groupId>-->
+<!--            <artifactId>jadler-jdk</artifactId>-->
+<!--            <version>1.1.2</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>net.javacrumbs.jadler-jdk</groupId>-->
+<!--            <artifactId>jadler-jdk</artifactId>-->
+<!--            <version>1.1.2</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>net.javacrumbs.jadler-jdk</groupId>-->
+<!--            <artifactId>jadler-jdk</artifactId>-->
+<!--            <version>1.1.2</version>-->
+<!--        </dependency>-->
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.panteleyev</groupId>
+            <artifactId>jpackage-maven-plugin</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>

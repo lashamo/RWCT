@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.service.TicketServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ public class TicketsValidatorJobTest {
         List<Integer> first = new ArrayList<>(Arrays.asList(3, 18, 9));
         List<Integer> second = new ArrayList<>(Arrays.asList(46, 18));
 
-        TicketsValidatorJob job = new TicketsValidatorJob();
+        TicketsValidatorJob job = new TicketsValidatorJob(null);
         Assertions.assertTrue(job.getIfMatchesAnyIndex(first, second));
     }
 
@@ -23,7 +24,7 @@ public class TicketsValidatorJobTest {
         List<Integer> first = new ArrayList<>(Arrays.asList(3, 18, 9));
         List<Integer> second = new ArrayList<>(Arrays.asList(46, 24));
 
-        TicketsValidatorJob job = new TicketsValidatorJob();
+        TicketsValidatorJob job = new TicketsValidatorJob(null);
         Assertions.assertFalse(job.getIfMatchesAnyIndex(first, second));
     }
 
@@ -34,7 +35,7 @@ public class TicketsValidatorJobTest {
         // 2 3 7 10 15 40 56 58 103 110
 
         List<Integer> expected = Arrays.asList(0, 3, 7, 9);
-        TicketsValidatorJob job = new TicketsValidatorJob();
+        TicketsValidatorJob job = new TicketsValidatorJob(null);
 
         List<Integer> result = job.getIndexesOfAvailable(unavailable, available);
         Assertions.assertEquals(expected, result);
@@ -47,7 +48,7 @@ public class TicketsValidatorJobTest {
         // 3 7 10 15 40 56 58 103
 
         List<Integer> expected = Arrays.asList(2, 6);
-        TicketsValidatorJob job = new TicketsValidatorJob();
+        TicketsValidatorJob job = new TicketsValidatorJob(null);
 
         List<Integer> result = job.getIndexesOfAvailable(unavailable, available);
         Assertions.assertEquals(expected, result);
@@ -60,7 +61,7 @@ public class TicketsValidatorJobTest {
         // 3 7 10 15 40 56 58 103
 
         List<Integer> expected = Arrays.asList(1, 2, 5, 6, 7, 16, 17, 18, 24, 27, 30, 31, 46);
-        TicketsValidatorJob job = new TicketsValidatorJob();
+        TicketsValidatorJob job = new TicketsValidatorJob(null);
 
         List<Integer> result = job.getIndexesOfAvailable(unavailable, available);
         Assertions.assertEquals(expected, result);
@@ -72,7 +73,7 @@ public class TicketsValidatorJobTest {
         String word = "rame";
 
         List<Integer> expected = Arrays.asList(0, 15, 25, 36);
-        TicketsValidatorJob job = new TicketsValidatorJob();
+        TicketsValidatorJob job = new TicketsValidatorJob(null);
 
         List<Integer> result = job.getWordsIndexes(content, word);
         Assertions.assertEquals(expected, result);
