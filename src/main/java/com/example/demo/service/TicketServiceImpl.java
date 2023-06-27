@@ -4,9 +4,11 @@ import com.example.demo.TicketsValidatorJob;
 import com.example.demo.entity.Ticket;
 import com.example.demo.repo.MatchesRepo;
 import com.example.demo.repo.TicketRepo;
+import com.example.demo.service.dto.TicketResponse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,6 +28,22 @@ public class TicketServiceImpl implements TicketService {
             }
 
         }
+    }
+
+    @Override
+    public List<TicketResponse> getAllTicket() {
+        List<TicketResponse> ticketResponses = new ArrayList<>();
+        Iterable<Ticket> iterable = ticketRepo.findAll();
+        iterable.forEach(ticket -> ticketResponses.add(mapTicketToTicketResponse(ticket)));
+        return ticketResponses;
+    }
+
+    private TicketResponse mapTicketToTicketResponse(Ticket ticket){
+        TicketResponse ticketResponse = new TicketResponse();
+        ticketResponse.setLocalDateTime(ticket.getAddDate());
+        ticketResponse.setMatchId(ticket.getMatches().getGameIndex());
+        ticketResponse.setMatchesName(ticket.getMatches().getTeam1()+" vs " + ticket.getMatches().getTeam2());
+        return ticketResponse;
     }
 
     private Ticket mapIndexToTicket(int index){
