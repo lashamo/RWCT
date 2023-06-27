@@ -15,8 +15,8 @@ public class TicketController {
         this.ticketService = ticketService;
     }
 
-@GetMapping("get-all-ticket")
-    public List<TicketResponse> getAllTicket(){
+    @GetMapping("get-all-ticket")
+    public List<TicketResponse> getAllTicket() {
         return ticketService.getAllTicket();
     }
 }

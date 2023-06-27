@@ -11,6 +11,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +29,7 @@ public class TicketsValidatorJob {
         this.ticketService = ticketService;
     }
 
-    @Scheduled(fixedDelay = 3_000)
+    @Scheduled(fixedDelay = 5_000)
     public void job() throws Exception {
         String content = readContentFromURL("https://tickets.rugbyworldcup.com/en");
         List<Integer> unavailable = getWordsIndexes(content, "secondary unavailable");
@@ -42,14 +44,6 @@ public class TicketsValidatorJob {
                 }
             }
             boolean isGeorgiaTicketAvailable = getIfMatchesAnyIndex(newAvailableTickets, Arrays.asList(3, 19, 28, 34));
-            for (int i : newAvailableTickets) {
-                if (i < 48) {
-                    System.out.println(MatchesInfo.matches.get(i));
-                }
-            }
-            System.out.println(newAvailableTickets);
-            System.out.println(isGeorgiaTicketAvailable);
-
             if (isGeorgiaTicketAvailable) {
                playAlarm();
             }
@@ -65,7 +59,9 @@ public class TicketsValidatorJob {
 
     private void playAlarm() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("D:/Java/mus/execute.aiff").getAbsoluteFile());
+            URL res = getClass().getClassLoader().getResource("audio/execute.aiff");
+            File file = Paths.get(res.toURI()).toFile();
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(file.getAbsoluteFile());
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();

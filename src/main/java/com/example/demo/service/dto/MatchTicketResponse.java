@@ -11,9 +11,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TicketResponse {
+public class MatchTicketResponse {
     private Long id;
-    private int matchId;
-    private String matchesName;
     private LocalDateTime addTime;
 }

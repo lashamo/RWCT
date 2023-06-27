@@ -10,26 +10,19 @@ import java.util.List;
 
 @RestController
 public class MatchesController {
-   private final MatchesService matchesService;
+    private final MatchesService matchesService;
 
-   public MatchesController(MatchesService matchesService){
-       this.matchesService=matchesService;
-   }
+    public MatchesController(MatchesService matchesService) {
+        this.matchesService = matchesService;
+    }
 
-   @GetMapping("get-all-matches")
-    public List<MatchesResponse> getAllMatches(){
-       return matchesService.getAllMatchesAndTicket();
-   }
-
-   @GetMapping("get-by-name-matches")
-    private List<MatchesResponse> getMatchesByName(@RequestParam(required = false) String teamName){
-       if (teamName != null ){
-           return matchesService.getMatchesByName(teamName);
-
-       }else {
-           return matchesService.getAllMatchesAndTicket();
-       }
-
-   }
-
+    @GetMapping("get-by-name-matches")
+    private List<MatchesResponse> getMatchesByName(@RequestParam(required = false) String teamName,
+                                                   @RequestParam(required = false) boolean includeTickets) {
+        if (teamName != null) {
+            return matchesService.getMatchesByName(teamName, includeTickets);
+        } else {
+            return matchesService.getAllMatchesAndTicket(includeTickets);
+        }
+    }
 }
